@@ -7,6 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+import com.example.Shield_India.model.ProtectionType;
+import com.example.Shield_India.repository.ProtectionTypeRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProtectionTypeService {

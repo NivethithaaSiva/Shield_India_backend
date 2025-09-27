@@ -17,17 +17,31 @@ const Login = () => {
     setIsLoading(true);
     setError('');
 
-    // Simulate login process
-    setTimeout(() => {
-      if (formData.username === 'admin' && formData.password === 'admin123') {
-        // Store login state (in a real app, you'd store a token)
+    try {
+      const response = await fetch('/api/employees/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        // Store login state (in a real app, you'd store a token or user info)
         localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user', JSON.stringify(data.employee));
         navigate('/dashboard');
       } else {
-        setError('Invalid username or password');
+        setError(data.message || 'Invalid username or password');
       }
+    } catch (err) {
+      setError('Network error. Please try again.');
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (e) => {

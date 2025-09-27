@@ -11,10 +11,13 @@ import {
   BarChart3,
   Settings,
   FileText,
-  MessageSquare
+  MessageSquare,
+  List
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const stats = [
     {
       title: "Total Clients",
@@ -124,7 +127,16 @@ const Dashboard = () => {
       description: "Book safety training",
       icon: MessageSquare,
       color: "text-orange-600",
-      bgColor: "bg-orange-100"
+      bgColor: "bg-orange-100",
+      action: () => {}
+    },
+    {
+      title: "Manage Items",
+      description: "Add, edit, or delete items",
+      icon: List,
+      color: "text-teal-600",
+      bgColor: "bg-teal-100",
+      action: () => navigate('/item-management')
     }
   ];
 
@@ -251,24 +263,22 @@ const Dashboard = () => {
                 <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
               </div>
               <div className="p-6">
-                <div className="space-y-4">
-                  {quickActions.map((action, index) => {
-                    const Icon = action.icon;
-                    return (
-                      <button
-                        key={index}
-                        className="w-full flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className={`w-10 h-10 rounded-lg ${action.bgColor} flex items-center justify-center mr-4`}>
-                          <Icon className={`h-5 w-5 ${action.color}`} />
-                        </div>
-                        <div className="text-left">
-                          <p className="text-sm font-medium text-gray-900">{action.title}</p>
-                          <p className="text-xs text-gray-600">{action.description}</p>
-                        </div>
-                      </button>
-                    );
-                  })}
+                <div className="grid grid-cols-2 gap-4">
+                  {quickActions.map((action, index) => (
+                    <button 
+                      key={index} 
+                      onClick={action.action}
+                      className="flex items-center p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                    >
+                      <div className={`w-10 h-10 rounded-lg ${action.bgColor} flex items-center justify-center mr-4`}>
+                        <action.icon className={`h-5 w-5 ${action.color}`} />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">{action.title}</p>
+                        <p className="text-sm text-gray-600">{action.description}</p>
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>

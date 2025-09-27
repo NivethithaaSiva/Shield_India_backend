@@ -10,6 +10,7 @@ import Products from './pages/Products';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import ItemManagement from './pages/ItemManagement';
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/item-management" element={
+            <ProtectedRoute>
+              <ItemManagement />
             </ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
